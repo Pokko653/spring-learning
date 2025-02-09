@@ -25,9 +25,18 @@ class PostServiceTest {
     @InjectMocks
     private PostService postService;
 
+    // Sample post
+    private Post post;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        // Create sample post
+        post = new Post();
+        post.setId(1L);
+        post.setTitle("Sample Title");
+        post.setContent("Sample Content");
     }
 
     @Test
@@ -65,12 +74,6 @@ class PostServiceTest {
 
     @Test
     void testFindPostById() {
-        // Create a sample Post
-        Post post = new Post();
-        post.setId(1L);
-        post.setTitle("Sample Title");
-        post.setContent("Sample Content");
-
         // Mock repository behavior
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
 
@@ -88,11 +91,7 @@ class PostServiceTest {
     @Test
     void testDeletePost() {
         // Mock repository behavior to simulate post existence
-        Post post = new Post();
         Long postId = 1L;
-        post.setId(1L);
-        post.setTitle("Sample Title");
-        post.setContent("Sample Content");
         when(postRepository.findById(postId)).thenReturn(Optional.of(post));
         when(postRepository.existsById(postId)).thenReturn(true);
 
