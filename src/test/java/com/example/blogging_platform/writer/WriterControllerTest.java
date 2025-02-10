@@ -37,7 +37,7 @@ class WriterControllerTest {
      * @throws Exception
      */
     @Test
-    void testCreateWriter() throws Exception {
+    void testCreateWriter_validWriter() throws Exception {
         Writer writer = new Writer();
         writer.setName("John Doe");
         writer.setEmail("john.doe@example.com");
@@ -90,7 +90,7 @@ class WriterControllerTest {
      * @throws Exception
      */
     @Test
-    void testGetWriterById() throws Exception {
+    void testGetWriterById_existingId() throws Exception {
         Writer writer = new Writer();
         writer.setId(1L);
         writer.setName("John Doe");
@@ -111,7 +111,7 @@ class WriterControllerTest {
      * @throws Exception
      */
     @Test
-    void testUpdateWriter() throws Exception {
+    void testUpdateWriter_existingId_validContent() throws Exception {
         Writer writer = new Writer();
         writer.setName("Updated Name");
         writer.setEmail("updated.email@example.com");
@@ -134,7 +134,7 @@ class WriterControllerTest {
      * @throws Exception
      */
     @Test
-    void testDeleteWriter() throws Exception {
+    void testDeleteWriter_existingId() throws Exception {
         doNothing().when(writerService).deleteWriter(1L);
 
         mockMvc.perform(delete("/api/writers/1"))

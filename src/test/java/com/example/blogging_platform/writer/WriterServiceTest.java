@@ -25,7 +25,7 @@ class WriterServiceTest {
 
     /** Test creating a new writer with valid writer */
     @Test
-    void testCreateWriter() {
+    void testCreateWriter_validWriter() {
         Writer writer = new Writer();
         writer.setName("John Doe");
         writer.setEmail("john.doe@example.com");
@@ -41,7 +41,7 @@ class WriterServiceTest {
 
     /** Test fetching a writer with existing ID */
     @Test
-    void testGetWriterById() {
+    void testGetWriterById_existingId() {
         Writer writer = new Writer();
         writer.setId(1L);
         writer.setName("John Doe");
@@ -58,7 +58,7 @@ class WriterServiceTest {
 
     /** Test updating a writer with existing Id and valid contents */
     @Test
-    void testUpdateWriter() {
+    void testUpdateWriter_existingId_validContent() {
         Writer existingWriter = new Writer();
         existingWriter.setId(1L);
         existingWriter.setName("John Doe");
@@ -80,7 +80,7 @@ class WriterServiceTest {
 
     /** Test deleting writer with existing ID */
     @Test
-    void testDeleteWriter() {
+    void testDeleteWriter_existingId() {
         // Mock repository behavior to simulate post existence
         Writer writer = new Writer();
         Long writerId = 1L;

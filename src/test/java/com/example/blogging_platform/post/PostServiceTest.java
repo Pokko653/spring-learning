@@ -43,7 +43,7 @@ class PostServiceTest {
 
     /** Test for creating a new post with valid post */
     @Test
-    void testCreatePost() {
+    void testCreatePost_validPost() {
         // Create a sample PostDto
         PostDto postDto = new PostDto();
         postDto.setTitle("Sample Title");
@@ -77,7 +77,7 @@ class PostServiceTest {
 
     /** Test fetching a post with existing ID */
     @Test
-    void testFindPostById() {
+    void testFindPostById_existingId() {
         // Mock repository behavior
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
 
@@ -94,7 +94,7 @@ class PostServiceTest {
 
     /** Test deleting a post with existing ID */
     @Test
-    void testDeletePost() {
+    void testDeletePost_existingID() {
         // Mock repository behavior to simulate post existence
         Long postId = 1L;
         when(postRepository.findById(postId)).thenReturn(Optional.of(post));

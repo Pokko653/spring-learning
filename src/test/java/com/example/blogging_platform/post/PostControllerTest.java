@@ -36,7 +36,7 @@ class PostControllerTest {
      * @throws Exception
      */
     @Test
-    void testCreatePost() throws Exception {
+    void testCreatePost_validPost() throws Exception {
         PostDto postDto = new PostDto();
         postDto.setTitle("Sample Title");
         postDto.setContent("Sample Content");
@@ -96,7 +96,7 @@ class PostControllerTest {
      * @throws Exception
      */
     @Test
-    void testGetPostById() throws Exception {
+    void testGetPostById_existingId() throws Exception {
         Post post = new Post();
         post.setId(1L);
         post.setTitle("Title 1");
@@ -119,7 +119,7 @@ class PostControllerTest {
      * @throws Exception
      */
     @Test
-    void testUpdatePost() throws Exception {
+    void testUpdatePost_existingId_validContent() throws Exception {
         PostDto postDto = new PostDto();
         postDto.setTitle("Updated Title");
         postDto.setContent("Updated Content");
@@ -149,7 +149,7 @@ class PostControllerTest {
      * @throws Exception
      */
     @Test
-    void testDeletePost() throws Exception {
+    void testDeletePost_existingID() throws Exception {
         doNothing().when(postService).deletePost(1L);
 
         mockMvc.perform(delete("/posts/1"))
