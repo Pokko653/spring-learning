@@ -12,10 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/** Test for controller bean for writer */
 @WebMvcTest(WriterController.class)
 class WriterControllerTest {
 
@@ -28,6 +31,11 @@ class WriterControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * Test creating a writer with valid writer
+     * 
+     * @throws Exception
+     */
     @Test
     void testCreateWriter() throws Exception {
         Writer writer = new Writer();
@@ -46,6 +54,11 @@ class WriterControllerTest {
         verify(writerService).createWriter(any(Writer.class));
     }
 
+    /**
+     * Test showing all writers
+     * 
+     * @throws Exception
+     */
     @Test
     void testGetAllWriters() throws Exception {
         Writer writer1 = new Writer();
@@ -71,6 +84,11 @@ class WriterControllerTest {
         verify(writerService).getAllWriters();
     }
 
+    /**
+     * Test showing a writer with existing ID
+     * 
+     * @throws Exception
+     */
     @Test
     void testGetWriterById() throws Exception {
         Writer writer = new Writer();
@@ -87,6 +105,11 @@ class WriterControllerTest {
         verify(writerService).getWriterById(1L);
     }
 
+    /**
+     * Test updating writer with existing ID and valid contents
+     * 
+     * @throws Exception
+     */
     @Test
     void testUpdateWriter() throws Exception {
         Writer writer = new Writer();
@@ -105,6 +128,11 @@ class WriterControllerTest {
         verify(writerService).updateWriter(eq(1L), any(Writer.class));
     }
 
+    /**
+     * Test deleting writer with existing ID
+     * 
+     * @throws Exception
+     */
     @Test
     void testDeleteWriter() throws Exception {
         doNothing().when(writerService).deleteWriter(1L);

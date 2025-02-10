@@ -10,21 +10,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Entity class for representing a writer */
 @Entity
 public class Writer {
 
+    /** Writer ID */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /** Writer name */
     private String name;
 
+    /** Writer's e-mail address */
     @Column(unique = true, nullable = false)
     private String email;
 
+    /** Timestamp representing when the writer signed up */
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    /** Posts by this writer */
     @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Post> posts = new ArrayList<>();

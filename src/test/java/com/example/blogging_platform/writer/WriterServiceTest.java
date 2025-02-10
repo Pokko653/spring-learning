@@ -10,6 +10,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/** Test for service bean for writer */
 class WriterServiceTest {
 
     @Mock
@@ -22,6 +23,7 @@ class WriterServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /** Test creating a new writer with valid writer */
     @Test
     void testCreateWriter() {
         Writer writer = new Writer();
@@ -37,6 +39,7 @@ class WriterServiceTest {
         verify(writerRepository).save(writer);
     }
 
+    /** Test fetching a writer with existing ID */
     @Test
     void testGetWriterById() {
         Writer writer = new Writer();
@@ -53,6 +56,7 @@ class WriterServiceTest {
         verify(writerRepository).findById(1L);
     }
 
+    /** Test updating a writer with existing Id and valid contents */
     @Test
     void testUpdateWriter() {
         Writer existingWriter = new Writer();
@@ -74,6 +78,7 @@ class WriterServiceTest {
         verify(writerRepository).save(existingWriter);
     }
 
+    /** Test deleting writer with existing ID */
     @Test
     void testDeleteWriter() {
         // Mock repository behavior to simulate post existence

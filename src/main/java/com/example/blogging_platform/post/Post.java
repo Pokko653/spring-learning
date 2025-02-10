@@ -8,21 +8,27 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+/** Entity class for representing a post */
 @Entity
 public class Post {
 
+    /** Post ID */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /** Post title */
     private String title;
 
+    /** Post contents */
     @Lob
     private String content;
 
+    /** Timestamp representing when the post is created */
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    /** Author of this post */
     @ManyToOne
     @JoinColumn(name = "writer_id", nullable = false)
     @JsonBackReference

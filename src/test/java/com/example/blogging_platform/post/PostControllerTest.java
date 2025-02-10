@@ -17,6 +17,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/** Test for controller bean for post */
 @WebMvcTest(PostController.class)
 class PostControllerTest {
 
@@ -29,31 +30,41 @@ class PostControllerTest {
     @Autowired
     private ObjectMapper objectMapper; // For JSON serialization
 
+    /**
+     * Test creating post when valid post is given
+     * 
+     * @throws Exception
+     */
     @Test
     void testCreatePost() throws Exception {
-        PostDTO postDTO = new PostDTO();
-        postDTO.setTitle("Sample Title");
-        postDTO.setContent("Sample Content");
-        postDTO.setWriterId(1L);
+        PostDto postDto = new PostDto();
+        postDto.setTitle("Sample Title");
+        postDto.setContent("Sample Content");
+        postDto.setWriterId(1L);
 
         Post createdPost = new Post();
         createdPost.setId(1L);
-        createdPost.setTitle(postDTO.getTitle());
-        createdPost.setContent(postDTO.getContent());
+        createdPost.setTitle(postDto.getTitle());
+        createdPost.setContent(postDto.getContent());
 
-        when(postService.createPost(any(PostDTO.class))).thenReturn(createdPost);
+        when(postService.createPost(any(PostDto.class))).thenReturn(createdPost);
 
         mockMvc.perform(post("/posts")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(postDTO)))
+                .content(objectMapper.writeValueAsString(postDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.title").value("Sample Title"))
                 .andExpect(jsonPath("$.content").value("Sample Content"));
 
-        verify(postService).createPost(any(PostDTO.class));
+        verify(postService).createPost(any(PostDto.class));
     }
 
+    /**
+     * Test showing all posts
+     * 
+     * @throws Exception
+     */
     @Test
     void testGetAllPosts() throws Exception {
         Post post1 = new Post();
@@ -79,6 +90,11 @@ class PostControllerTest {
         verify(postService).getAllPosts();
     }
 
+    /**
+     * Test showing a post with existing ID
+     * 
+     * @throws Exception
+     */
     @Test
     void testGetPostById() throws Exception {
         Post post = new Post();
@@ -97,31 +113,41 @@ class PostControllerTest {
         verify(postService).getPostById(1L);
     }
 
+    /**
+     * Test updating post with existing ID and valid contents
+     * 
+     * @throws Exception
+     */
     @Test
     void testUpdatePost() throws Exception {
-        PostDTO postDTO = new PostDTO();
-        postDTO.setTitle("Updated Title");
-        postDTO.setContent("Updated Content");
-        postDTO.setWriterId(1L);
+        PostDto postDto = new PostDto();
+        postDto.setTitle("Updated Title");
+        postDto.setContent("Updated Content");
+        postDto.setWriterId(1L);
 
         Post updatedPost = new Post();
         updatedPost.setId(1L);
-        updatedPost.setTitle(postDTO.getTitle());
-        updatedPost.setContent(postDTO.getContent());
+        updatedPost.setTitle(postDto.getTitle());
+        updatedPost.setContent(postDto.getContent());
 
-        when(postService.updatePost(eq(1L), any(PostDTO.class))).thenReturn(updatedPost);
+        when(postService.updatePost(eq(1L), any(PostDto.class))).thenReturn(updatedPost);
 
         mockMvc.perform(put("/posts/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(postDTO)))
+                .content(objectMapper.writeValueAsString(postDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.title").value("Updated Title"))
                 .andExpect(jsonPath("$.content").value("Updated Content"));
 
-        verify(postService).updatePost(eq(1L), any(PostDTO.class));
+        verify(postService).updatePost(eq(1L), any(PostDto.class));
     }
 
+    /**
+     * Test deleting post with existing ID
+     * 
+     * @throws Exception
+     */
     @Test
     void testDeletePost() throws Exception {
         doNothing().when(postService).deletePost(1L);

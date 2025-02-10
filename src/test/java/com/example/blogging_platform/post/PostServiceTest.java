@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/** Test for service bean for post */
 class PostServiceTest {
 
     @Mock
@@ -25,9 +26,10 @@ class PostServiceTest {
     @InjectMocks
     private PostService postService;
 
-    // Sample post
+    /** Field for sample post to be tested */
     private Post post;
 
+    /** Set up a sample post before testing */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -39,13 +41,14 @@ class PostServiceTest {
         post.setContent("Sample Content");
     }
 
+    /** Test for creating a new post with valid post */
     @Test
     void testCreatePost() {
-        // Create a sample PostDTO
-        PostDTO postDTO = new PostDTO();
-        postDTO.setTitle("Sample Title");
-        postDTO.setContent("Sample Content");
-        postDTO.setWriterId(1L);
+        // Create a sample PostDto
+        PostDto postDto = new PostDto();
+        postDto.setTitle("Sample Title");
+        postDto.setContent("Sample Content");
+        postDto.setWriterId(1L);
 
         // Create a sample Writer to mock its retrieval
         Writer writer = new Writer();
@@ -58,7 +61,7 @@ class PostServiceTest {
         when(postRepository.save(any(Post.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Call the service method
-        Post createdPost = postService.createPost(postDTO);
+        Post createdPost = postService.createPost(postDto);
 
         // Verify and assert
         assertThat(createdPost).isNotNull();
@@ -72,6 +75,7 @@ class PostServiceTest {
         verify(postRepository).save(any(Post.class));
     }
 
+    /** Test fetching a post with existing ID */
     @Test
     void testFindPostById() {
         // Mock repository behavior
@@ -88,6 +92,7 @@ class PostServiceTest {
         verify(postRepository).findById(1L);
     }
 
+    /** Test deleting a post with existing ID */
     @Test
     void testDeletePost() {
         // Mock repository behavior to simulate post existence
